@@ -725,13 +725,7 @@ impl EGraph {
     }
 
     pub fn eval_lit(&self, lit: &Literal) -> Value {
-        match lit {
-            Literal::Int(i) => i.store(&self.type_info().get_sort_nofail()).unwrap(),
-            Literal::F64(f) => f.store(&self.type_info().get_sort_nofail()).unwrap(),
-            Literal::String(s) => s.store(&self.type_info().get_sort_nofail()).unwrap(),
-            Literal::Unit => ().store(&self.type_info().get_sort_nofail()).unwrap(),
-            Literal::Bool(b) => b.store(&self.type_info().get_sort_nofail()).unwrap(),
-        }
+        Value::from(lit.clone())
     }
 
     pub fn function_to_dag(

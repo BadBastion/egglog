@@ -3,7 +3,7 @@ use std::num::NonZeroU32;
 
 use lazy_static::lazy_static;
 
-use crate::{ast::Symbol, Id};
+use crate::{ast::Symbol, Id, Literal};
 
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Copy)]
 // FIXME this shouldn't be pub
@@ -39,6 +39,19 @@ impl Value {
         }
     }
 }
+
+impl From<Literal> for Value {
+    fn from(lit: Literal) -> Self {
+        match lit {
+            Literal::Int(e) => Value::from(e),
+            Literal::F64(e) => Value::from(e),
+            Literal::String(e) => Value::from(e),
+            Literal::Bool(e) => Value::from(e),
+            Literal::Unit => Value::unit(),
+        }
+    }
+}
+
 
 impl From<i64> for Value {
     fn from(i: i64) -> Self {
